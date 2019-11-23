@@ -14,7 +14,7 @@ class SocketIOManager: NSObject {
     
     static let sharedInstance = SocketIOManager()
     let manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress])
-    lazy var socket = manager.socket(forNamespace: "/my-namespace")
+    lazy var socket = manager.socket(forNamespace: "/my-namespace1")
     var rooms:[String]? = []
     var messages:[String]? = []
     override init() {
@@ -86,6 +86,10 @@ class SocketIOManager: NSObject {
     
     func clearMessages(){
         return (self.messages?.removeAll())!
+    }
+    
+    func setNamespaces(namespace:String){
+        socket = manager.socket(forNamespace: namespace)
     }
 }
 

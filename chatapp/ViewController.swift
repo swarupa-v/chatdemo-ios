@@ -8,7 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
+    var nameSpaces:[String] = ["/my-namespace","/my-namespace1"]
+    @IBOutlet weak var namespaceTableView: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = namespaceTableView.dequeueReusableCell(withIdentifier: "namespaceCellIdentifier")!
+        
+        cell.textLabel?.text = nameSpaces[indexPath.row] //3.
+        
+        return cell //4.
+    }
+    
 
     @IBOutlet weak var roomLabel: UILabel!
     override func viewDidLoad() {
@@ -17,28 +34,18 @@ class ViewController: UIViewController {
         self.roomLabel.text = "Welcome to chat" //SocketIOManager.sharedInstance.rooms
     }
     
-    @IBAction func roomClick(_ sender: Any) {
+   
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        
-//        let roomViewController = storyBoard.instantiateViewController(withIdentifier: "roomview") as! RoomViewController
-//        
-//        self.navigationController?.pushViewController(roomViewController, animated: true)
-
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let roomViewController = storyBoard.instantiateViewController(withIdentifier: "roomview") as! RoomViewController
+        //roomViewController.room = self.roomArray![indexPath.row]
+        let namespace = self.nameSpaces[indexPath.row]
+        //SocketIOManager.sharedInstance.setNamespaces(namespace: namespace)
+        self.present(roomViewController, animated: true,completion: nil)
     }
-    
-//    @IBAction func joinChat(_ sender: Any) {
-//        SocketIOManager.sharedInstance.sendMessage(message: "Hi", room: "Room1")
-//    }
-//    
-    
-//    @IBAction func joinRoomClick(_ sender: Any) {
-//
-//        SocketIOManager.sharedInstance.joinRoom(name: "Room1")
-//
-//
-//    }
-//
 
 }
 

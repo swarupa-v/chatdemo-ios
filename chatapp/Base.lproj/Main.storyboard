@@ -23,27 +23,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfw-DK-FKi">
-                                <rect key="frame" x="183" y="104.5" width="48" height="30"/>
-                                <state key="normal" title="Rooms"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wdE-1O-deQ">
+                                <rect key="frame" x="0.0" y="104.5" width="414" height="757.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="namespaceCellIdentifier" id="zLg-Oa-qap">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zLg-Oa-qap" id="gOX-gM-CR5">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <action selector="roomClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rIv-bP-o6I"/>
-                                    <segue destination="o6S-fX-VQT" kind="show" id="ViI-cj-C0Q"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="wjE-N5-a3W"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Txw-SL-0Y0"/>
                                 </connections>
-                            </button>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="kfw-DK-FKi" firstAttribute="top" secondItem="KMz-12-HHx" secondAttribute="bottom" constant="20" id="2T9-IW-xDu"/>
                             <constraint firstItem="KMz-12-HHx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="7tu-IP-TVk"/>
-                            <constraint firstItem="kfw-DK-FKi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NMR-m1-q9q"/>
+                            <constraint firstItem="wdE-1O-deQ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Rcj-If-VTo"/>
+                            <constraint firstItem="wdE-1O-deQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jxp-Qw-j07"/>
+                            <constraint firstItem="wdE-1O-deQ" firstAttribute="top" secondItem="KMz-12-HHx" secondAttribute="bottom" constant="20" id="pe6-rv-ONy"/>
                             <constraint firstItem="KMz-12-HHx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="t4P-1i-ahP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wdE-1O-deQ" secondAttribute="bottom" id="tbs-jV-bSV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KMz-12-HHx" secondAttribute="trailing" constant="20" id="u6L-Tw-LzR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="gV3-Sj-mTr"/>
                     <connections>
+                        <outlet property="namespaceTableView" destination="wdE-1O-deQ" id="c9x-mv-Dv6"/>
                         <outlet property="roomLabel" destination="KMz-12-HHx" id="yIW-eH-91D"/>
                     </connections>
                 </viewController>
