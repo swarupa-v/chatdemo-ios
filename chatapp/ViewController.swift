@@ -43,7 +43,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let roomViewController = storyBoard.instantiateViewController(withIdentifier: "roomview") as! RoomViewController
         //roomViewController.room = self.roomArray![indexPath.row]
         let namespace = self.nameSpaces[indexPath.row]
-        //SocketIOManager.sharedInstance.setNamespaces(namespace: namespace)
+        SocketIOManager.sharedInstance.closeConnection()
+        SocketIOManager.sharedInstance.setNamespaces(namespace: namespace)
+        SocketIOManager.sharedInstance.establishConnection()
         self.present(roomViewController, animated: true,completion: nil)
     }
 

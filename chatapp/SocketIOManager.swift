@@ -14,9 +14,10 @@ class SocketIOManager: NSObject {
     
     static let sharedInstance = SocketIOManager()
     let manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress])
-    lazy var socket = manager.socket(forNamespace: "/my-namespace1")
+    lazy var socket = manager.socket(forNamespace: "/my-namespace")
     var rooms:[String]? = []
     var messages:[String]? = []
+    var word:String = ""
     override init() {
         super.init()
         
@@ -54,7 +55,10 @@ class SocketIOManager: NSObject {
         }
         
         socket.on("message") { dataArray, ack in
-            print("message recieved \(dataArray)")
+            print("word recieved \(dataArray)")
+            self.word = dataArray.first as! String
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name("wordrcvd"), object: nil)
         }
   
     }
@@ -74,6 +78,7 @@ class SocketIOManager: NSObject {
             nc.post(name: Notification.Name("messagercvd"), object: nil)
         }
         
+      
     }
     
     func getRooms()-> [String]{
@@ -90,6 +95,10 @@ class SocketIOManager: NSObject {
     
     func setNamespaces(namespace:String){
         socket = manager.socket(forNamespace: namespace)
+    }
+    
+    func getWord()->String{
+        return self.word
     }
 }
 

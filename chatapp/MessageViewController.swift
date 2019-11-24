@@ -9,6 +9,11 @@
 import UIKit
 
 class MessageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
+    @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
+    var count = 1
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SocketIOManager.sharedInstance.getMessages().count
     }
@@ -28,6 +33,10 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func sendClick(_ sender: Any) {
         
+        if(self.chatTextfield.text == SocketIOManager.sharedInstance.getWord()){
+           self.countLabel.text = String(count)
+           count = count + 1
+        }
         SocketIOManager.sharedInstance.sendMessage(message: chatTextfield.text!, room: room)
         self.chatTextfield.text = ""
     }
@@ -47,11 +56,21 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
             selector: #selector(messageRcvd),
             name: NSNotification.Name(rawValue: "messagercvd"),
             object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(wordrcvd),
+            name: NSNotification.Name(rawValue: "wordrcvd"),
+            object: nil)
     }
     
   
     @objc func messageRcvd(notfication: NSNotification) {
         self.messageTableView.reloadData()
+    }
+    
+    @objc func wordrcvd(notfication: NSNotification) {
+        self.wordLabel.text = SocketIOManager.sharedInstance.getWord()
     }
 
     
